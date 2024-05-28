@@ -582,6 +582,10 @@ async function initWasm() {
 
 router.get('/get_keys', async (req: Request, res: Response) => {
     const xrax = req.query.xrax as string;
+    // if (xrax === undefined) {
+    //     res.send({code: 502, msg: 'xrax not found'});
+    //     return;
+    // }
     try {
         let getKeys = await initWasm();
         const result = await getKeys(xrax);
