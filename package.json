@@ -1,0 +1,29 @@
+{
+  "name": "wasm_service",
+  "version": "1.0.0",
+  "description": "rabbitstream wasm api",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "ts_start": "ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^20.12.7",
+    "@types/node-fetch": "^2.6.11",
+    "crypto-js": "^4.2.0",
+    "express": "^4.19.2",
+    "install": "^0.13.0",
+    "node-fetch": "^3.3.2",
+    "npm": "^10.8.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21"
+  }
+}
