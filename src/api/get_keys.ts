@@ -1,6 +1,26 @@
-import {Router, Request, Response} from 'express';
+import {Request, Response, Router} from 'express';
 
 const router = Router();
+
+var img_resp: any;
+
+async function get_img(url: string) {
+    let resp: any;
+    try {
+        if (img_resp) {
+            resp = img_resp;
+        } else {
+            console.log(`LoadWasm ${url}`)
+            resp = await fetch(url);
+            img_resp = resp;
+        }
+    } catch (e) {
+        console.log(`LoadWasm ${url}`)
+        resp = await fetch(url);
+        img_resp = resp;
+    }
+    return resp;
+}
 
 async function initWasm() {
 
@@ -215,7 +235,7 @@ async function initWasm() {
 
     async function QN(QP: Response, Qn: WebAssembly.Imports) {
         let QT: ArrayBuffer, Qt: any;
-        return 'function' == typeof Response && QP instanceof Response ? (QT = await QP.arrayBuffer(), Qt = await WebAssembly.instantiate(QT, Qn), Object.assign(Qt, {'bytes': QT})) : (Qt = await WebAssembly.instantiate(QP, Qn)) instanceof WebAssembly.Instance ? {
+        return 'function' == typeof Response && QP instanceof Response ? (QT = await QP.clone().arrayBuffer(), Qt = await WebAssembly.instantiate(QT, Qn), Object.assign(Qt, {'bytes': QT})) : (Qt = await WebAssembly.instantiate(QP, Qn)) instanceof WebAssembly.Instance ? {
             'instance': Qt,
             'module': QP
         } : Qt;
@@ -511,7 +531,8 @@ async function initWasm() {
             instance: url,
             module: mod,
             bytes: buffer
-        } = (url = fetch(url), void 0, await QN(await url, mod)), assignWasm(url), buffer);
+            // } = (url = fetch(url), void 0, await QN(await url, mod)), assignWasm(url), buffer);
+        } = (url = get_img(url), void 0, await QN(await url, mod)), assignWasm(url), buffer);
     }
 
     const greetLoader = {
@@ -575,6 +596,7 @@ async function initWasm() {
             b: 1676800512,
             key: str
         }
+        console.log(`xrax:${xrax},v:${ks.v},h:${ks.h},key:${ks.key}`)
         return ks;
     }
     return getKeys;
