@@ -594,8 +594,12 @@ async function initWasm() {
     }
 
 
-    const getKeys = async (xrax: string) => {
-        await getCookie((embed_url + xrax + "?z="));
+    const getKeys = async (xrax: string, cookie: string) => {
+        if (cookie && cookie.length > 10) {
+            fake_window.document.cookie = cookie;
+        } else {
+            await getCookie((embed_url + xrax + "?z="));
+        }
         fake_window.xrax = xrax;
         let keys = await V();
         var Q3 = fake_window.localStorage.kversion;
@@ -616,7 +620,7 @@ async function initWasm() {
             b: 1676800512,
             key: str
         }
-        console.log(`xrax:${xrax},v:${ks.v},h:${ks.h},key:${ks.key}`)
+        console.log(`xrax:${xrax},cookie:${fake_window.document.cookie},v:${ks.v},h:${ks.h},key:${ks.key}`)
         wasm = null;
         return ks;
     }
@@ -625,13 +629,10 @@ async function initWasm() {
 
 router.get('/get_keys', async (req: Request, res: Response) => {
     const xrax = req.query.xrax as string;
-    // if (xrax === undefined) {
-    //     res.send({code: 502, msg: 'xrax not found'});
-    //     return;
-    // }
+    const cookie = req.query.cookie as string;
     try {
         let getKeys: any = await initWasm();
-        const result = await getKeys(xrax);
+        const result = await getKeys(xrax, cookie);
         getKeys = null;
         res.send({code: 200, msg: 'OK', data: result});
     } catch (e) {
