@@ -29,8 +29,7 @@ async function initWasm() {
     const data = new Uint8ClampedArray(pixels);
     const embed_url = "https://rabbitstream.net/v2/embed-4/";
     const referrer = "https://flixhq.to/";
-    // const user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0";
-    const user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+    const user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0";
 
     let wasm: any;
     let arr = new Array(128).fill(void 0);
@@ -535,7 +534,7 @@ async function initWasm() {
             instance: url,
             module: mod,
             bytes: buffer
-        } = (url = get_img(url), void 0, await QN(await url, mod)), assignWasm(url), buffer);
+        } = (url = fetch(url), void 0, await QN(await url, mod)), assignWasm(url), buffer);
     }
 
     const greetLoader = {
@@ -596,7 +595,6 @@ async function initWasm() {
             let content = match.slice(match.lastIndexOf('"') + 1)
             meta.content = content;
             if (content) {
-                console.log(`LoadServiceMeta ${content}`)
                 meta_content = content
             }
         }
@@ -629,7 +627,7 @@ async function initWasm() {
             b: 1676800512,
             key: str
         }
-        console.log(`xrax:${xrax},meta:${meta.content},v:${ks.v},h:${ks.h},key:${ks.key}`)
+        console.log(`xrax:${xrax},meta:${content},v:${ks.v},h:${ks.h},key:${ks.key}`)
         wasm = null;
         return ks;
     }
