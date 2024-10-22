@@ -7,7 +7,7 @@ const user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/
 
 let wasm: any;
 let arr = new Array(128).fill(void 0);
-const dateNow = Date.now() + 0.7;
+const dateNow = Date.now();
 let content: string = '';
 
 const dataURL = "data:image/png;base64,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";
@@ -59,6 +59,7 @@ const fake_window: fakeWindow = {
     navigator: {
         webdriver: false,
         userAgent: user_agent,
+        appVersion: user_agent
     },
     length: 0,
     document: {
@@ -148,7 +149,7 @@ function parse(text: string, func: Function, func2: Function) {
 }
 
 
-let arr32: Int32Array | null;
+let arr32: DataView | null = null;
 
 function isNull(test: any) {
     console.log("is null call: ", (null == test));
@@ -156,7 +157,24 @@ function isNull(test: any) {
 }
 
 function getArr32() {
-    return arr32 = null !== arr32 && 0 !== arr32.byteLength ? arr32 : new Int32Array(wasm.memory.buffer);
+    let isDetached = true
+    try {
+        // @ts-ignore
+        if (null != arr32){
+            isDetached =  arr32.byteLength === 0;
+        }
+    } catch (e) {
+        console.log('buffer is detached:',e)
+        isDetached =  true;
+    }
+    if(null != arr32 && !isDetached && arr32.buffer == wasm.memory.buffer){
+        return arr32
+    }else{
+        arr32 = new DataView(wasm.memory.buffer)
+    }
+    console.log('new dataview:',Date.now())
+    return arr32
+    // return arr32 = null !== arr32 && 0 !== arr32.byteLength ? arr32 : new Int32Array(wasm.memory.buffer);
 }
 
 let pointer = arr.length;
@@ -186,15 +204,6 @@ function addToStack(item: any) {
     return pointer = arr[Qn], arr[Qn] = item, Qn;
 }
 
-const AI = 'undefined' == typeof FinalizationRegistry ? {
-    'register': () => {
-    }, 'unregister': () => {
-    }
-} : new FinalizationRegistry((Args: any) => {
-    wasm.__wbindgen_export_2.get(Args.dtor)(Args.a, Args.b);
-});
-
-
 function args(QP: any, Qn: number, QT: number, func: Function) {
     const Qx = {
         'a': QP,
@@ -207,9 +216,9 @@ function args(QP: any, Qn: number, QT: number, func: Function) {
         try {
             return func(Qx.a, Qx.b, ...Qw);
         } finally {
-            0 == --Qx.cnt && (wasm.__wbindgen_export_2.get(Qx.dtor)(Qx.a, Qx.b), Qx.a = 0, AI['unregister'](Qx));
+            0 == --Qx.cnt && (wasm.__wbindgen_export_2.get(Qx.dtor)(Qx.a, Qx.b), Qx.a = 0);
         }
-    }, (QP.original = Qx, AI['register'](QP, Qx, Qx), QP);
+    }, (QP.original = Qx, QP);
 }
 
 function export3(QP: any, Qn: any) {
@@ -265,9 +274,7 @@ function initWasm() {
                 const ret = get(arg0).subarray(arg1 >>> 0, arg2 >>> 0);
                 return addToStack(ret);
             },
-            '__wbg_newwithlength_0d03cef43b68a530': function (val: any) {
-                return addToStack(new Uint8Array(val >>> 0));
-            },
+
             '__wbg_toString_139023ab33acec36': function (arg0: any) {
                 const ret = get(arg0).toString();
                 return addToStack(ret);
@@ -294,18 +301,18 @@ function initWasm() {
             },
 
             '__wbg_randomFillSync_5c9c955aa56b6049': function () {
-                return applyToWindow(function (index: number, index2: number) {
-
-                    return addToStack(get(index).context2d);
-                }, arguments);
+                // return applyToWindow(function (index: number, index2: number) {
+                //
+                //     return addToStack(get(index).context2d);
+                // }, arguments);
             },
             '__wbg_msCrypto_eb05e62b530a1508': function (arg0: any) {
-                const ret = get(arg0).msCrypto;
-                return addToStack(ret);
+                // const ret = get(arg0).msCrypto;
+                // return addToStack(ret);
             },
             '__wbg_require_cca90b1a94a0255b': function (arg0: any) {
-                const ret = get(arg0).require;
-                return addToStack(ret)
+                // const ret = get(arg0).require;
+                // return addToStack(ret)
             },
             '__wbindgen_is_string': function (arg0: any) {
                 let val = get(arg0);
@@ -321,12 +328,13 @@ function initWasm() {
                 return addToStack(ret);
             },
             '__wbg_process_4a72847cc503995b': function (arg0: any) {
-                const ret = get(arg0).process;
+                const ret = get(arg0).msCrypto;
                 return addToStack(ret);
             },
             '__wbg_localStorage_3d538af21ea07fcc': function () {
                 return applyToWindow(function (index: number) {
-                    return addToStack(get(index).localStorage);
+                    let a0 = get(index).localStorage;
+                    return isNull(a0) ? 0 : addToStack(a0);
                 }, arguments);
             },
             '__wbindgen_is_object': function (arg0: any) {
@@ -340,15 +348,18 @@ function initWasm() {
             },
             '__wbindgen_number_get': function (offset: number, index: number) {
                 let obj = get(index);
-                let b = 'number' == typeof obj ? obj : void 0x0;
-                getArr32()[offset / 4 + 2] = null == b ? 0 : b;
-                getArr32()[offset / 4] = Number(!(null == b));
+                // @ts-ignore
+                let b: number = 'number' == typeof obj ? obj : void 0;
+                console.log('number_get:', b)
+                getArr32().setFloat32(offset + 8, b, true);
+                getArr32().setInt32(offset, 1, true);
+
             },
             '__wbindgen_string_get': function (offset: number, index: number) {
                 let str = get(index);
                 let val = parse(str, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
-                getArr32()[offset / 4 + 1] = size;
-                getArr32()[offset / 4 + 0] = val;
+                getArr32().setInt32(offset + 4, size, true);
+                getArr32().setInt32(offset, val, true);
             },
             '__wbindgen_object_drop_ref': function (index: number) {
                 shiftGet(index);
@@ -390,9 +401,10 @@ function initWasm() {
             '__wbg_settextBaseline_c3266d3bd4a6695c': function () {
             },
             '__wbg_drawImage_cb13768a1bdc04bd': function () {
-                // return applyToWindow(function (index: any, decodeIndex: number, decodeIndexOffset: number,Ab:any) {
-                //     // get(index)['drawImage'](get(decodeIndex),decodeIndexOffset,Ab);
-                // }, arguments);
+                return applyToWindow(function (index: any, decodeIndex: number, decodeIndexOffset: number, Ab: any) {
+                    // get(index)['drawImage'](get(decodeIndex),decodeIndexOffset,Ab);
+                    // get(index)['drawImage'](get(decodeIndex),decodeIndexOffset,Ab);
+                }, arguments);
 
             },
             '__wbg_getImageData_66269d289f37d3c7': function () {
@@ -412,8 +424,11 @@ function initWasm() {
             },
             '__wbg_createElement_03cf347ddad1c8c0': function () {
                 return applyToWindow(function (index: any, decodeIndex: number, decodeIndexOffset: number) {
-                    let a1 = get(index);
+                    // let a1 = get(index);
                     let a2 = decodeSub(decodeIndex, decodeIndexOffset)
+                    console.log("createElement call: ", index, ' ', a2);
+                    // let new_canvas = createCanvas()
+                    // return addToStack(new_canvas);
                     return addToStack(canvas);
                 }, arguments);
             },
@@ -434,8 +449,8 @@ function initWasm() {
                 let attr = meta.content;
                 //todo!
                 let todo = isNull(attr) ? 0 : parse(attr, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
-                getArr32()[offset / 4 + 1] = size;
-                getArr32()[offset / 4 + 0] = todo;
+                getArr32().setInt32(offset + 4, size, true);
+                getArr32().setInt32(offset, todo, true);
             },
             '__wbg_target_6795373f170fd786': function (index: number) {
                 let target = get(index).target
@@ -456,14 +471,17 @@ function initWasm() {
             '__wbg_getContext_dfc91ab0837db1d1': function () {
                 return applyToWindow(function (index: number) {
                     console.log("getContext call: ");
-                    return addToStack(get(index).context2d);
+                    let a0 = get(index)
+                    // return addToStack(a0.getContext('2d'));
+                    return addToStack(a0.context2d);
+
                 }, arguments);
             },
             '__wbg_toDataURL_97b108dd1a4b7454': function () {
                 return applyToWindow(function (offset: number) {
                     let _dataUrl = parse(dataURL, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
-                    getArr32()[offset / 4 + 1] = size;
-                    getArr32()[offset / 4 + 0] = _dataUrl;
+                    getArr32().setInt32(offset + 4, size, true);
+                    getArr32().setInt32(offset, _dataUrl, true);
                 }, arguments);
             },
             '__wbg_instanceof_HtmlDocument_1100f8a983ca79f9': function () {
@@ -472,8 +490,8 @@ function initWasm() {
             '__wbg_cookie_0ad89e781441fb95': function () {
                 return applyToWindow(function (offset: number, index: number) {
                     let _cookie = parse(get(index).cookie, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
-                    getArr32()[offset / 4 + 1] = size;
-                    getArr32()[offset / 4 + 0] = _cookie;
+                    getArr32().setInt32(offset + 4, size, true);
+                    getArr32().setInt32(offset, _cookie, true);
                 }, arguments);
             },
             '__wbg_style_ca229e3326b3c3fb': function (index: number) {
@@ -484,8 +502,9 @@ function initWasm() {
             },
             '__wbg_src_87a0e38af6229364': function (offset: number, index: number) {
                 let _src = parse(get(index).src, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
-                getArr32()[offset / 4 + 1] = size;
-                getArr32()[offset / 4 + 0] = _src;
+                getArr32().setInt32(offset + 4, size, true);
+                getArr32().setInt32(offset, _src, true);
+
             },
             '__wbg_width_e1a38bdd483e1283': function (index: number) {
                 return get(index).width;
@@ -498,29 +517,30 @@ function initWasm() {
             },
             '__wbg_data_d34dc554f90b8652': function (offset: number, index: number) {
                 var _data = Qj(get(index).data, wasm.__wbindgen_export_0);
-                getArr32()[offset / 4 + 1] = size;
-                getArr32()[offset / 4 + 0] = _data;
+                getArr32().setInt32(offset + 4, size, true);
+                getArr32().setInt32(offset , _data, true);
             },
             '__wbg_origin_305402044aa148ce': function () {
                 return applyToWindow(function (offset: number, index: number) {
                     let _origin = parse(get(index).origin, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
-                    getArr32()[offset / 4 + 1] = size;
-                    getArr32()[offset / 4 + 0] = _origin;
+                    getArr32().setInt32(offset + 4, size, true);
+                    getArr32().setInt32(offset , _origin, true);
                 }, arguments)
             },
             '__wbg_length_8a9352f7b7360c37': function (index: number) {
                 return get(index).length;
             },
             '__wbg_get_c30ae0782d86747f': function (index: number, index2: number) {
-                // let _image = get(index).image;
-                // return isNull(_image) ? 0 : addToStack(_image);
-                let a0 = get(index)[index2 >>> 0x0]
-                return isNull(a0) ? 0x0 : addToStack(a0);
+                let _image = get(index).image;
+                // let a0 = get(index)[index2 >>> 0x0]
+
+                return isNull(_image) ? 0 : addToStack(_image);
             },
             '__wbg_timeOrigin_f462952854d802ec': function (index: number) {
                 return get(index).timeOrigin;
             },
-            '__wbg_instanceof_Window_cee7a886d55e7df5': function () {
+            '__wbg_instanceof_Window_cee7a886d55e7df5': function (index: number) {
+                let a0 = get(index)
                 return true
             },
             '__wbg_document_eb7fd66bde3ee213': function (index: number) {
@@ -536,12 +556,13 @@ function initWasm() {
             },
             '__wbg_origin_e1f8acdeb3a39a2b': function (offset: number, index: number) {
                 let _origin = parse(get(index).origin, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
-                getArr32()[offset / 4 + 1] = size;
-                getArr32()[offset / 4 + 0] = _origin;
+                getArr32().setInt32(offset + 4, size, true);
+                getArr32().setInt32(offset , _origin, true);
             },
             '__wbg_get_8986951b1ee310e0': function (index: number, index2: number, index3: number) {
                 let a = get(index);
                 let b = decodeSub(index2, index3);
+                console.log('get Win:', b)
                 let c = a[b]
                 return isNull(c) ? 0 : addToStack(c);
             },
@@ -578,7 +599,9 @@ function initWasm() {
             },
             '__wbg_eval_c824e170787ad184': function () {
                 return applyToWindow(function (index: number, offset: number) {
-                    let fake_str = "fake_" + decodeSub(index, offset);
+                    let code = decodeSub(index, offset)
+                    console.log("source code:", code);
+                    let fake_str = "fake_" + code;
                     let ev = eval(fake_str);
                     console.log("eval: ", fake_str, ' ', ev);
 
@@ -604,6 +627,9 @@ function initWasm() {
             '__wbg_new_b1f2d6842d615181': function (index: number) {
                 return addToStack(new Uint8Array(get(index)));
             },
+            '__wbg_newwithlength_0d03cef43b68a530': function (val: any) {
+                return addToStack(new Uint8Array(val >>> 0));
+            },
             '__wbg_buffer_67e624f5a0ab2319': function (index: number) {
                 return addToStack(get(index).buffer);
             },
@@ -626,7 +652,6 @@ function initWasm() {
     return wasmObj;
 }
 
-//WebAssembly baseline compiler dis
 function assignWasm(resp: any) {
     wasm = resp.exports;
     arr32 = null, memoryBuff = null, wasm;
@@ -694,8 +719,6 @@ const V = async () => {
         console.log("error: ", error);
     }
     fake_window.jwt_plugin(Q0);
-    let test = new Uint8Array(fake_window.navigate());
-    return test;
 }
 
 const getMeta = async (url: string) => {
@@ -717,19 +740,34 @@ const getMeta = async (url: string) => {
 const main = async (xrax: string) => {
     await getMeta((embed_url + xrax + "?z="));
     fake_window.xrax = xrax;
-    let keys = await V();
-    let getSourcesUrl = "https://rabbitstream.net/ajax/v2/embed-4/getSources?id=" + fake_window.pid + "&v=" + fake_window.localStorage.kversion + "&h=" + fake_window.localStorage.kid + "&b=1676800512"
+    await V();
+
+    // let getSourcesUrl = "https://"+domain+"/ajax/v2/embed-4/getSources?id=" + fake_window.pid + "&v=" + fake_window.localStorage.kversion + "&h=" + fake_window.localStorage.kid + "&b=1676800512"
+    let getSourcesUrl = "https://" + domain + "/ajax/v2/embed-4/getSources?id=" + fake_window.pid + "&v=" + fake_window.localStorage.kversion + "&h=" + fake_window.localStorage.kid + "&b=" + fake_window.browser_version
     console.log(getSourcesUrl)
+    const headers = {
+        'Host': domain,
+        'sec-ch-ua-platform': '"macOS"',
+        'x-requested-with': 'XMLHttpRequest',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'accept': '*/*',
+        'sec-ch-ua': '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        'referer': 'https://' + domain + '/v2/embed-4/YtWrKhOWfk3v?z=',
+        'accept-language': 'zh-CN,zh;q=0.9',
+        'priority': 'u=1, i'
+    }
     let resp_json = await (await fetch(getSourcesUrl, {
-        "headers": {
-            "User-Agent": user_agent,
-            "X-Requested-With": "XMLHttpRequest"
-        },
+        "headers": headers,
         "method": "GET",
         "mode": "cors"
     })).json();
     console.log("\nResponse from getSources:");
     console.log(resp_json);
+    let keys = new Uint8Array(fake_window.navigate());
     let encrypted = resp_json.sources;
     var Q3 = fake_window.localStorage.kversion;
     let tostr = '';
@@ -752,4 +790,4 @@ const main = async (xrax: string) => {
 }
 
 
-main('YtWrKhOWfk3v'); //change this value to the embed-id you want to extract from
+main('kcpnPif91E4N'); //change this value to the embed-id you want to extract from
